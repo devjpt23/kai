@@ -4,6 +4,7 @@ from genai import Client, Credentials
 from genai.extensions.langchain.chat_llm import LangChainChatInterface
 from genai.schema import DecodingMethod
 from langchain_community.chat_models import BedrockChat, ChatOllama, ChatOpenAI
+from langchain_groq import ChatGroq
 from langchain_community.chat_models.fake import FakeListChatModel
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -97,6 +98,19 @@ class ModelProvider:
 
                 model_args = deep_update(defaults, config.args)
                 model_id = model_args["model_id"]
+            
+            case "ChatGroq":
+                model_class = ChatGroq
+                api_key = os.getenv("GROQ_API_KEY")
+
+                defaults = {
+                    "model_id": "mixtral-8x7b-32768",
+                    "groq_api_key":api_key
+                }
+
+                model_args = deep_update(defaults, config.args)
+                model_id = model_args["model_id"]
+
 
             case "FakeListChatModel":
                 model_class = FakeListChatModel
