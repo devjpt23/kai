@@ -61,8 +61,11 @@ def parse_file_solution_content(language: str, content: str) -> FileSolutionCont
 
     sections = separate_sections(content)
     reasoning = sections.get("## Reasoning", "")
+    KAI_LOG.info(f"Reasoning {reasoning}")
     updated_file_content = sections.get("## Updated File", "")
+    KAI_LOG.info(f"updated file content : {updated_file_content}")
     additional_info = sections.get("## Additional Information", "")
+    KAI_LOG.info(f"additional info {additional_info}")
 
     code_block_matches = re.findall(code_block_pattern, updated_file_content, re.DOTALL)
 

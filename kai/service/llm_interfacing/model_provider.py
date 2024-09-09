@@ -104,12 +104,17 @@ class ModelProvider:
                 api_key = os.getenv("GROQ_API_KEY")
 
                 defaults = {
-                    "model_id": "mixtral-8x7b-32768",
-                    "groq_api_key":api_key
+                    "model": "mixtral-8x7b-32768",
+                    "temperature":0,
+                    "max_tokens":None,
+                    # "max_reties":2,
+                    "streaming":False,
+                    # "groq_api_key":api_key
                 }
 
                 model_args = deep_update(defaults, config.args)
-                model_id = model_args["model_id"]
+                print(f"Using model: {model_args['model']}")
+                model_id = model_args["model"]
 
 
             case "FakeListChatModel":

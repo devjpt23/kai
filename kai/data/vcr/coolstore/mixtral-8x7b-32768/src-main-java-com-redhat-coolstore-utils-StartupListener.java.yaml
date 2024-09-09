@@ -1,0 +1,236 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/utils/StartupListener.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.utils;\n\nimport jakarta.enterprise.context.ApplicationScoped;\nimport
+      jakarta.enterprise.event.Observes;\nimport io.quarkus.logging.Log;\n\n@ApplicationScoped\npublic
+      class StartupListener {\n\n    private Log log = Log.getLogger(StartupListener.class);\n\n    void
+      onStart(@Observes @Startup StartupEvent event) {\n        log.info(\"AppListener(onStart)\");\n    }\n\n    void
+      onStop(@Observes @PreDestroy StartupEvent event) {\n        log.info(\"AppListener(onStop)\");\n    }\n\n}\n\n```\n\n##
+      Issues\n\n### incident 0\nincident to fix: \"Replace the `javax.inject` import
+      statement with `jakarta.inject`\"\nLine number: 6\n\n# Output Instructions\nStructure
+      your output in Markdown format such as:\n\n## Reasoning\nWrite the step by step
+      reasoning in this markdown section. If you are unsure of a step or reasoning,
+      clearly state you are unsure and why.\n\n## Updated File\n```java\n// Write
+      the updated file for Quarkus in this section. If the file should be removed,
+      make the content of the updated file a comment explaining it should be removed.\n```\n\n##
+      Additional Information (optional)\n\nIf you have any additional details or steps
+      that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
+      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
+        in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
+        Limit 5000, Used 5181, Requested 599. Please try again in 9.363s. Visit https://console.groq.com/docs/rate-limits
+        for more information.","type":"tokens","code":"rate_limit_exceeded"}}
+
+        '
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf78b445eceb196-NBO
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '332'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:56:11 GMT
+      Server:
+      - cloudflare
+      alt-svc:
+      - h3=":443"; ma=86400
+      retry-after:
+      - '10'
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '-181'
+      x-ratelimit-reset-requests:
+      - 4.887s
+      x-ratelimit-reset-tokens:
+      - 1m2.175s
+      x-request-id:
+      - req_01j76frhtnfj1az1nh6y52kw7c
+    status:
+      code: 429
+      message: Too Many Requests
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/utils/StartupListener.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.utils;\n\nimport jakarta.enterprise.context.ApplicationScoped;\nimport
+      jakarta.enterprise.event.Observes;\nimport io.quarkus.logging.Log;\n\n@ApplicationScoped\npublic
+      class StartupListener {\n\n    private Log log = Log.getLogger(StartupListener.class);\n\n    void
+      onStart(@Observes @Startup StartupEvent event) {\n        log.info(\"AppListener(onStart)\");\n    }\n\n    void
+      onStop(@Observes @PreDestroy StartupEvent event) {\n        log.info(\"AppListener(onStop)\");\n    }\n\n}\n\n```\n\n##
+      Issues\n\n### incident 0\nincident to fix: \"Replace the `javax.inject` import
+      statement with `jakarta.inject`\"\nLine number: 6\n\n# Output Instructions\nStructure
+      your output in Markdown format such as:\n\n## Reasoning\nWrite the step by step
+      reasoning in this markdown section. If you are unsure of a step or reasoning,
+      clearly state you are unsure and why.\n\n## Updated File\n```java\n// Write
+      the updated file for Quarkus in this section. If the file should be removed,
+      make the content of the updated file a comment explaining it should be removed.\n```\n\n##
+      Additional Information (optional)\n\nIf you have any additional details or steps
+      that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
+      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAwAAAP//pFbbbuM2EH3vVwyYh2YBWSv5Il+CAgnQFG0R9LZb9KEuHEocS0yoIUNS
+        joPA/15QlhUnTi9o9WSQc86ZGZ4h/cykYAtWVNwXtVGDdTHL+WgyGSR5kg3GQvBBzsVkkKbJcJQP
+        kyRN5ixiOr/DwnfAuNC1UeilJhaxwiL3KNginQ4n02Eyn6URq7VAxRaslltvuRrMttN8MBpOs1lA
+        VFoW6Nji92cmSeCWLZKI1egcL5EtnpnVCtmCceek85x8wGjySCGDszP4BbnTJKlc0pLSGD5XCLI2
+        2npwnnuskTxoAiUJIQPpoGisRfLqCRonqQRfIdze8Q3fxpJCabdgeHHPS4zgsZJFFUAh6Hu+4XB9
+        HXhJcCtgrS0INEgCqXiCPVpqiuFb/YgbtBH83HB73zhoHLqD0j23nv+jVhv1L+U+V2hxrW1gQSBE
+        AV6DRaN4ge8VeNKhR+mrk9ziJQ33He13kDxaY6XDGDdIL/kDJ7FXuvwxd2g36G6BE2nPQ47ALYYm
+        7KtooVBxEiqcgKRDn1o1h210oa3FwrfEQgNp31eWIxQVpxJFvKRRl6LU8UPHonRZSirjG13eQqG4
+        c6GvvXy3/UZXtkGvVdH9te640728MkbJoi3zU6ENileFH4S9BkkixIUT4X7frE+eW9+YG+k8Etqj
+        bDkBfyEeuJYZcuT0X5KddMl2etf7s+vFAk7gWhKK0JWQmrF6IwUKKLRAcCSNQR/DbwjcuabuipC+
+        zRWKxnlddwe7p233K+4gR6SeHZXDx2DXI51gthiuHChNJfAADcX1ndhwqXiu3kK+7GIM91UUNgJp
+        qKVvwb5+kD4Ot8PZGfxqRLig4BupcEm3t+1YLOng4ULXsUWxv9e0cl5bjBsvlbsIBN3UvDML7ZW0
+        9fGJFS7+DtV2Kz6My0vo+04+pdqPadyd6QV8/AhXIhzZyXgH1192cUfmDEWd2ndJpsmVLLoTeGNR
+        eA4oAABj5Sa4+UaXYaTgq/ArLtHf6LJEe/4GGLd0Hy4O8I2WAjS1Uef9pfGS5rFV98b6ELSh+5Qu
+        Y0lrfb5kV6YXOe8IPyxZUAqBuxNBbY71frL4NTpv9dP/kNTmreKu9VfnuyshZGgwV/AdrbWt+/b/
+        oAljtouY0qWxOndsQY1SEVtLkq5a2fZ9YwvmvDZs90fEmsPT+NBggysva2SLJE6SdJjMkiSbd980
+        Ysbq2viV1/dIji2yYfaydoCN0tk0mw5H4V09POU9YpzNXq93qOlkPJqns/k4Yl57rnpAmhytHYJn
+        2TCbZel0FzH35DzWq7Wksp2C9hlfm1UxWQ+TfJLnKYvYdlVa/RBKbP+gWHxYJendNFvbx3GC48py
+        nPGn+TjJUpuw3e6LPwEAAP//AwBALOtdyggAAA==
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf78b863bcab195-NBO
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:56:22 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      alt-svc:
+      - h3=":443"; ma=86400
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '97'
+      x-ratelimit-reset-requests:
+      - 6s
+      x-ratelimit-reset-tokens:
+      - 58.825s
+      x-request-id:
+      - req_01j76frw40e4hrae8ay94061r0
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -30,5 +30,5 @@ password = "dog8code"
 provider = "ChatGroq"
 
 [models.args]
-model_id = "mixtral-8x7b-32768"
+model = "mixtral-8x7b-32768"
  

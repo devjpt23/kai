@@ -1,0 +1,352 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/rest/CartEndpoint.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.rest;\n\nimport java.util.ArrayList;\nimport
+      java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nimport
+      jakarta.enterprise.context.RequestScoped; // or @ApplicationScoped\nimport jakarta.inject.Inject;\nimport
+      jakarta.ws.rs.DELETE;\nimport jakarta.ws.rs.GET;\nimport jakarta.ws.rs.POST;\nimport
+      jakarta.ws.rs.Path;\nimport jakarta.ws.rs.PathParam;\nimport jakarta.ws.rs.Produces;\nimport
+      jakarta.ws.rs.core.MediaType;\n\nimport com.redhat.coolstore.model.Product;\nimport
+      com.redhat.coolstore.model.ShoppingCart;\nimport com.redhat.coolstore.model.ShoppingCartItem;\nimport
+      com.redhat.coolstore.service.ShoppingCartService;\n\n@RequestScoped // or @ApplicationScoped\n@Path(\"/cart\")\npublic
+      class CartEndpoint {\n\n    private static final long serialVersionUID = -7227732980791688773L;\n\n    @Inject\n    private
+      ShoppingCartService shoppingCartService;\n\n    @GET\n    @Path(\"/{cartId}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart getCart(@PathParam(\"cartId\") String cartId) {\n        return
+      shoppingCartService.getShoppingCart(cartId);\n    }\n\n    @POST\n    @Path(\"/checkout/{cartId}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart checkout(@PathParam(\"cartId\") String cartId) {\n        return
+      shoppingCartService.checkOutShoppingCart(cartId);\n    }\n\n    @POST\n    @Path(\"/{cartId}/{itemId}/{quantity}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart add(@PathParam(\"cartId\") String cartId,\n                             @PathParam(\"itemId\")
+      String itemId,\n                             @PathParam(\"quantity\") int quantity)
+      throws Exception {\n        ShoppingCart cart = shoppingCartService.getShoppingCart(cartId);\n\n        Product
+      product = shoppingCartService.getProduct(itemId);\n\n        ShoppingCartItem
+      sci = new ShoppingCartItem();\n        sci.setProduct(product);\n        sci.setQuantity(quantity);\n        sci.setPrice(product.getPrice());\n        cart.addShoppingCartItem(sci);\n\n        try
+      {\n            shoppingCartService.priceShoppingCart(cart);\n            cart.setShoppingCartItemList(dedupeCartItems(cart.getShoppingCartItemList()));\n        }
+      catch (Exception ex) {\n            cart.removeShoppingCartItem(sci);\n            throw
+      ex;\n        }\n\n        return cart;\n    }\n\n    @POST\n    @Path(\"/{cartId}/{tmpId}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart set(@PathParam(\"cartId\") String cartId,\n                             @PathParam(\"tmpId\")
+      String tmpId) throws Exception {\n\n        ShoppingCart cart = shoppingCartService.getShoppingCart(cartId);\n        ShoppingCart
+      tmpCart = shoppingCartService.getShoppingCart(tmpId);\n\n        if (tmpCart
+      != null) {\n            cart.resetShoppingCartItemList();\n            cart.setShoppingCartItemList(tmpCart.getShoppingCartItemList());\n        }\n\n        try
+      {\n            shoppingCartService.priceShoppingCart(cart);\n            cart.setShoppingCartItemList(dedupeCartItems(cart.getShoppingCartItemList()));\n        }
+      catch (Exception ex) {\n            throw ex;\n        }\n\n        return cart;\n    }\n\n    @DELETE\n    @Path(\"/{cartId}/{itemId}/{quantity}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart delete(@PathParam(\"cartId\") String cartId,\n                               @PathParam(\"itemId\")
+      String itemId,\n                               @PathParam(\"quantity\") int
+      quantity) throws Exception {\n\n        List<ShoppingCartItem> toRemoveList
+      = new ArrayList<>();\n\n        ShoppingCart cart = shoppingCartService.getShoppingCart(cartId);\n\n        cart.getShoppingCartItemList().stream()\n                .filter(sci
+      -> sci.getProduct().getItemId().equals(itemId))\n                .forEach(sci
+      -> {\n                    if (quantity >= sci.getQuantity()) {\n                        toRemoveList.add(sci);\n                    }
+      else {\n                        sci.setQuantity(sci.getQuantity() - quantity);\n                    }\n                });\n\n        toRemoveList.forEach(cart::removeShoppingCartItem);\n\n        shoppingCartService.priceShoppingCart(cart);\n        return
+      cart;\n    }\n\n\n\n    private List<ShoppingCartItem> dedupeCartItems(List<ShoppingCartItem>
+      cartItems) {\n        List<ShoppingCartItem> result = new ArrayList<>();\n        Map<String,
+      Integer> quantityMap = new HashMap<>();\n        for (ShoppingCartItem sci :
+      cartItems) {\n            if (quantityMap.containsKey(sci.getProduct().getItemId()))
+      {\n                quantityMap.put(sci.getProduct().getItemId(), quantityMap.get(sci.getProduct().getItemId())
+      + sci.getQuantity());\n            } else {\n                quantityMap.put(sci.getProduct().getItemId(),
+      sci.getQuantity());\n            }\n        }\n\n        for (String itemId
+      : quantityMap.keySet()) {\n            Product p = shoppingCartService.getProduct(itemId);\n            ShoppingCartItem
+      newItem = new ShoppingCartItem();\n            newItem.setQuantity(quantityMap.get(itemId));\n            newItem.setPrice(p.getPrice());\n            newItem.setProduct(p);\n            result.add(newItem);\n        }\n        return
+      result;\n    }\n}\n\n```\n\n## Issues\n\n### incident 0\nincident to fix: \"Replace
+      the `javax.enterprise` import statement with `jakarta.enterprise`\"\nLine number:
+      9\n### incident 1\nincident to fix: \"Replace the `javax.inject` import statement
+      with `jakarta.inject`\"\nLine number: 10\n### incident 2\nincident to fix: \"Replace
+      the `javax.ws` import statement with `jakarta.ws`\"\nLine number: 11\n### incident
+      3\nincident to fix: \"Replace the `javax.ws` import statement with `jakarta.ws`\"\nLine
+      number: 12\n### incident 4\nincident to fix: \"Replace the `javax.ws` import
+      statement with `jakarta.ws`\"\nLine number: 13\n### incident 5\nincident to
+      fix: \"Replace the `javax.ws` import statement with `jakarta.ws`\"\nLine number:
+      14\n### incident 6\nincident to fix: \"Replace the `javax.ws` import statement
+      with `jakarta.ws`\"\nLine number: 15\n### incident 7\nincident to fix: \"Replace
+      the `javax.ws` import statement with `jakarta.ws`\"\nLine number: 16\n### incident
+      8\nincident to fix: \"Replace the `javax.ws` import statement with `jakarta.ws`\"\nLine
+      number: 17\n\n# Output Instructions\nStructure your output in Markdown format
+      such as:\n\n## Reasoning\nWrite the step by step reasoning in this markdown
+      section. If you are unsure of a step or reasoning, clearly state you are unsure
+      and why.\n\n## Updated File\n```java\n// Write the updated file for Quarkus
+      in this section. If the file should be removed, make the content of the updated
+      file a comment explaining it should be removed.\n```\n\n## Additional Information
+      (optional)\n\nIf you have any additional details or steps that need to be performed,
+      put it here.\n\n"}], "model": "mixtral-8x7b-32768", "n": 1, "stop": null, "stream":
+      false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
+        in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
+        Limit 5000, Used 5301, Requested 1958. Please try again in 27.115s. Visit
+        https://console.groq.com/docs/rate-limits for more information.","type":"tokens","code":"rate_limit_exceeded"}}
+
+        '
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf77427eb13b199-NBO
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '334'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:40:24 GMT
+      Server:
+      - cloudflare
+      alt-svc:
+      - h3=":443"; ma=86400
+      retry-after:
+      - '28'
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '-301'
+      x-ratelimit-reset-requests:
+      - 3.325s
+      x-ratelimit-reset-tokens:
+      - 1m3.619s
+      x-request-id:
+      - req_01j76evncfex1sga9yxev20g3p
+    status:
+      code: 429
+      message: Too Many Requests
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/rest/CartEndpoint.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.rest;\n\nimport java.util.ArrayList;\nimport
+      java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nimport
+      jakarta.enterprise.context.RequestScoped; // or @ApplicationScoped\nimport jakarta.inject.Inject;\nimport
+      jakarta.ws.rs.DELETE;\nimport jakarta.ws.rs.GET;\nimport jakarta.ws.rs.POST;\nimport
+      jakarta.ws.rs.Path;\nimport jakarta.ws.rs.PathParam;\nimport jakarta.ws.rs.Produces;\nimport
+      jakarta.ws.rs.core.MediaType;\n\nimport com.redhat.coolstore.model.Product;\nimport
+      com.redhat.coolstore.model.ShoppingCart;\nimport com.redhat.coolstore.model.ShoppingCartItem;\nimport
+      com.redhat.coolstore.service.ShoppingCartService;\n\n@RequestScoped // or @ApplicationScoped\n@Path(\"/cart\")\npublic
+      class CartEndpoint {\n\n    private static final long serialVersionUID = -7227732980791688773L;\n\n    @Inject\n    private
+      ShoppingCartService shoppingCartService;\n\n    @GET\n    @Path(\"/{cartId}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart getCart(@PathParam(\"cartId\") String cartId) {\n        return
+      shoppingCartService.getShoppingCart(cartId);\n    }\n\n    @POST\n    @Path(\"/checkout/{cartId}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart checkout(@PathParam(\"cartId\") String cartId) {\n        return
+      shoppingCartService.checkOutShoppingCart(cartId);\n    }\n\n    @POST\n    @Path(\"/{cartId}/{itemId}/{quantity}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart add(@PathParam(\"cartId\") String cartId,\n                             @PathParam(\"itemId\")
+      String itemId,\n                             @PathParam(\"quantity\") int quantity)
+      throws Exception {\n        ShoppingCart cart = shoppingCartService.getShoppingCart(cartId);\n\n        Product
+      product = shoppingCartService.getProduct(itemId);\n\n        ShoppingCartItem
+      sci = new ShoppingCartItem();\n        sci.setProduct(product);\n        sci.setQuantity(quantity);\n        sci.setPrice(product.getPrice());\n        cart.addShoppingCartItem(sci);\n\n        try
+      {\n            shoppingCartService.priceShoppingCart(cart);\n            cart.setShoppingCartItemList(dedupeCartItems(cart.getShoppingCartItemList()));\n        }
+      catch (Exception ex) {\n            cart.removeShoppingCartItem(sci);\n            throw
+      ex;\n        }\n\n        return cart;\n    }\n\n    @POST\n    @Path(\"/{cartId}/{tmpId}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart set(@PathParam(\"cartId\") String cartId,\n                             @PathParam(\"tmpId\")
+      String tmpId) throws Exception {\n\n        ShoppingCart cart = shoppingCartService.getShoppingCart(cartId);\n        ShoppingCart
+      tmpCart = shoppingCartService.getShoppingCart(tmpId);\n\n        if (tmpCart
+      != null) {\n            cart.resetShoppingCartItemList();\n            cart.setShoppingCartItemList(tmpCart.getShoppingCartItemList());\n        }\n\n        try
+      {\n            shoppingCartService.priceShoppingCart(cart);\n            cart.setShoppingCartItemList(dedupeCartItems(cart.getShoppingCartItemList()));\n        }
+      catch (Exception ex) {\n            throw ex;\n        }\n\n        return cart;\n    }\n\n    @DELETE\n    @Path(\"/{cartId}/{itemId}/{quantity}\")\n    @Produces(MediaType.APPLICATION_JSON)\n    public
+      ShoppingCart delete(@PathParam(\"cartId\") String cartId,\n                               @PathParam(\"itemId\")
+      String itemId,\n                               @PathParam(\"quantity\") int
+      quantity) throws Exception {\n\n        List<ShoppingCartItem> toRemoveList
+      = new ArrayList<>();\n\n        ShoppingCart cart = shoppingCartService.getShoppingCart(cartId);\n\n        cart.getShoppingCartItemList().stream()\n                .filter(sci
+      -> sci.getProduct().getItemId().equals(itemId))\n                .forEach(sci
+      -> {\n                    if (quantity >= sci.getQuantity()) {\n                        toRemoveList.add(sci);\n                    }
+      else {\n                        sci.setQuantity(sci.getQuantity() - quantity);\n                    }\n                });\n\n        toRemoveList.forEach(cart::removeShoppingCartItem);\n\n        shoppingCartService.priceShoppingCart(cart);\n        return
+      cart;\n    }\n\n\n\n    private List<ShoppingCartItem> dedupeCartItems(List<ShoppingCartItem>
+      cartItems) {\n        List<ShoppingCartItem> result = new ArrayList<>();\n        Map<String,
+      Integer> quantityMap = new HashMap<>();\n        for (ShoppingCartItem sci :
+      cartItems) {\n            if (quantityMap.containsKey(sci.getProduct().getItemId()))
+      {\n                quantityMap.put(sci.getProduct().getItemId(), quantityMap.get(sci.getProduct().getItemId())
+      + sci.getQuantity());\n            } else {\n                quantityMap.put(sci.getProduct().getItemId(),
+      sci.getQuantity());\n            }\n        }\n\n        for (String itemId
+      : quantityMap.keySet()) {\n            Product p = shoppingCartService.getProduct(itemId);\n            ShoppingCartItem
+      newItem = new ShoppingCartItem();\n            newItem.setQuantity(quantityMap.get(itemId));\n            newItem.setPrice(p.getPrice());\n            newItem.setProduct(p);\n            result.add(newItem);\n        }\n        return
+      result;\n    }\n}\n\n```\n\n## Issues\n\n### incident 0\nincident to fix: \"Replace
+      the `javax.enterprise` import statement with `jakarta.enterprise`\"\nLine number:
+      9\n### incident 1\nincident to fix: \"Replace the `javax.inject` import statement
+      with `jakarta.inject`\"\nLine number: 10\n### incident 2\nincident to fix: \"Replace
+      the `javax.ws` import statement with `jakarta.ws`\"\nLine number: 11\n### incident
+      3\nincident to fix: \"Replace the `javax.ws` import statement with `jakarta.ws`\"\nLine
+      number: 12\n### incident 4\nincident to fix: \"Replace the `javax.ws` import
+      statement with `jakarta.ws`\"\nLine number: 13\n### incident 5\nincident to
+      fix: \"Replace the `javax.ws` import statement with `jakarta.ws`\"\nLine number:
+      14\n### incident 6\nincident to fix: \"Replace the `javax.ws` import statement
+      with `jakarta.ws`\"\nLine number: 15\n### incident 7\nincident to fix: \"Replace
+      the `javax.ws` import statement with `jakarta.ws`\"\nLine number: 16\n### incident
+      8\nincident to fix: \"Replace the `javax.ws` import statement with `jakarta.ws`\"\nLine
+      number: 17\n\n# Output Instructions\nStructure your output in Markdown format
+      such as:\n\n## Reasoning\nWrite the step by step reasoning in this markdown
+      section. If you are unsure of a step or reasoning, clearly state you are unsure
+      and why.\n\n## Updated File\n```java\n// Write the updated file for Quarkus
+      in this section. If the file should be removed, make the content of the updated
+      file a comment explaining it should be removed.\n```\n\n## Additional Information
+      (optional)\n\nIf you have any additional details or steps that need to be performed,
+      put it here.\n\n"}], "model": "mixtral-8x7b-32768", "n": 1, "stop": null, "stream":
+      false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: !!binary |
+        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
+        AP//AwCgLHOtMhsAAA==
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf774da790eb19c-NBO
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:40:56 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      alt-svc:
+      - h3=":443"; ma=86400
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '121'
+      x-ratelimit-reset-requests:
+      - 6s
+      x-ratelimit-reset-tokens:
+      - 58.545s
+      x-request-id:
+      - req_01j76ewh99fxztmy160y2wvkc8
+    status:
+      code: 200
+      message: OK
+version: 1

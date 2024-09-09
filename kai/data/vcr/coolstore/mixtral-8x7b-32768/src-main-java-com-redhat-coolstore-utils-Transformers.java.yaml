@@ -1,0 +1,335 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/utils/Transformers.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.utils;\n\nimport com.redhat.coolstore.model.CatalogItemEntity;\nimport
+      com.redhat.coolstore.model.Order;\nimport com.redhat.coolstore.model.OrderItem;\nimport
+      com.redhat.coolstore.model.Product;\nimport com.redhat.coolstore.model.ShoppingCart;\nimport
+      java.io.StringReader;\nimport java.io.StringWriter;\nimport java.util.ArrayList;\nimport
+      java.util.List;\nimport jakarta.json.Json;\nimport jakarta.json.JsonArray;\nimport
+      jakarta.json.JsonArrayBuilder;\nimport jakarta.json.JsonObject;\nimport jakarta.json.JsonReader;\nimport
+      jakarta.json.JsonWriter;\n\nimport java.util.concurrent.ThreadLocalRandom;\nimport
+      java.util.logging.Logger;\n\n/**\n * Created by tqvarnst on 2017-03-30.\n */\npublic
+      class Transformers {\n\n    private static final String[] RANDOM_NAMES = {\"Sven
+      Karlsson\",\"Johan Andersson\",\"Karl Svensson\",\"Anders Johansson\",\"Stefan
+      Olson\",\"Martin Ericsson\"};\n    private static final String[] RANDOM_EMAILS
+      = {\"sven@gmail.com\",\"johan@gmail.com\",\"karl@gmail.com\",\"anders@gmail.com\",\"stefan@gmail.com\",\"martin@gmail.com\"};\n\n    private
+      static Logger log = Logger.getLogger(Transformers.class.getName());\n\n    public
+      static Product toProduct(CatalogItemEntity entity) {\n        Product prod =
+      new Product();\n        prod.setItemId(entity.getItemId());\n        prod.setName(entity.getName());\n        prod.setDesc(entity.getDesc());\n        prod.setPrice(entity.getPrice());\n        if
+      (entity.getInventory() != null) {\n            prod.setLocation(entity.getInventory().getLocation());\n            prod.setLink(entity.getInventory().getLink());\n            prod.setQuantity(entity.getInventory().getQuantity());\n        }
+      else {\n            log.warning(\"Inventory for \" + entity.getName() + \"[\"
+      + entity.getItemId()+ \"] unknown and missing\");\n        }\n        return
+      prod;\n    }\n\n    public static String shoppingCartToJson(ShoppingCart cart)
+      {\n        JsonArrayBuilder cartItems = Json.createArrayBuilder();\n        cart.getShoppingCartItemList().forEach(item
+      -> {\n            cartItems.add(Json.createObjectBuilder()\n                .add(\"productSku\",item.getProduct().getItemId())\n                .add(\"quantity\",item.getQuantity())\n            );\n        });\n\n        int
+      randomNameAndEmailIndex = ThreadLocalRandom.current().nextInt(RANDOM_NAMES.length);\n\n        JsonObject
+      jsonObject = Json.createObjectBuilder()\n            .add(\"orderValue\", Double.valueOf(cart.getCartTotal()))\n            .add(\"customerName\",RANDOM_NAMES[randomNameAndEmailIndex])\n            .add(\"customerEmail\",RANDOM_EMAILS[randomNameAndEmailIndex])\n            .add(\"retailPrice\",
+      cart.getShoppingCartItemList().stream().mapToDouble(i -> i.getQuantity()*i.getPrice()).sum())\n            .add(\"discount\",
+      Double.valueOf(cart.getCartItemPromoSavings()))\n            .add(\"shippingFee\",
+      Double.valueOf(cart.getShippingTotal()))\n            .add(\"shippingDiscount\",
+      Double.valueOf(cart.getShippingPromoSavings()))\n            .add(\"items\",cartItems)
+      \n            .build();\n        StringWriter w = new StringWriter();\n        try
+      (JsonWriter writer = Json.createWriter(w)) {\n            writer.write(jsonObject);\n        }\n        return
+      w.toString();\n    }\n\n    public static Order jsonToOrder(String json) {\n        JsonReader
+      jsonReader = Json.createReader(new StringReader(json));\n        JsonObject
+      rootObject = jsonReader.readObject();\n        Order order = new Order();\n        order.setCustomerName(rootObject.getString(\"customerName\"));\n        order.setCustomerEmail(rootObject.getString(\"customerEmail\"));\n        order.setOrderValue(rootObject.getJsonNumber(\"orderValue\").doubleValue());\n        order.setRetailPrice(rootObject.getJsonNumber(\"retailPrice\").doubleValue());\n        order.setDiscount(rootObject.getJsonNumber(\"discount\").doubleValue());\n        order.setShippingFee(rootObject.getJsonNumber(\"shippingFee\").doubleValue());\n        order.setShippingDiscount(rootObject.getJsonNumber(\"shippingDiscount\").doubleValue());\n        JsonArray
+      jsonItems = rootObject.getJsonArray(\"items\");\n        List<OrderItem> items
+      = new ArrayList<OrderItem>(jsonItems.size());\n        for (JsonObject jsonItem
+      : jsonItems.getValuesAs(JsonObject.class)) {\n            OrderItem oi = new
+      OrderItem();\n            oi.setProductId(jsonItem.getString(\"productSku\"));\n            oi.setQuantity(jsonItem.getInt(\"quantity\"));\n            items.add(oi);\n        }\n        order.setItemList(items);
+      \n        return order;\n    }\n\n\n}\n\n```\n\n## Issues\n\n### incident 0\nincident
+      to fix: \"Replace the `javax.json` import statement with `jakarta.json`\"\nLine
+      number: 12\n### incident 1\nincident to fix: \"Replace the `javax.json` import
+      statement with `jakarta.json`\"\nLine number: 13\n### incident 2\nincident to
+      fix: \"Replace the `javax.json` import statement with `jakarta.json`\"\nLine
+      number: 14\n### incident 3\nincident to fix: \"Replace the `javax.json` import
+      statement with `jakarta.json`\"\nLine number: 15\n### incident 4\nincident to
+      fix: \"Replace the `javax.json` import statement with `jakarta.json`\"\nLine
+      number: 16\n### incident 5\nincident to fix: \"Replace the `javax.json` import
+      statement with `jakarta.json`\"\nLine number: 17\n\n# Output Instructions\nStructure
+      your output in Markdown format such as:\n\n## Reasoning\nWrite the step by step
+      reasoning in this markdown section. If you are unsure of a step or reasoning,
+      clearly state you are unsure and why.\n\n## Updated File\n```java\n// Write
+      the updated file for Quarkus in this section. If the file should be removed,
+      make the content of the updated file a comment explaining it should be removed.\n```\n\n##
+      Additional Information (optional)\n\nIf you have any additional details or steps
+      that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
+      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
+        in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
+        Limit 5000, Used 5274, Requested 1720. Please try again in 23.933s. Visit
+        https://console.groq.com/docs/rate-limits for more information.","type":"tokens","code":"rate_limit_exceeded"}}
+
+        '
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf78b8f4be0b19c-NBO
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '334'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:56:23 GMT
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cf_bm=wsya6kpJTNFIIGQiHnOn04Zr172palqm66anD4YoylI-1725720983-1.0.1.1-UoCFBcHbOKcFcHxKo._uAVOOcTd9s46ussq_r0P124fmQ8KL_2AD.yKUf8K5sbLJnlD0.ScT7f9EmqDnziZzfA;
+        path=/; expires=Sat, 07-Sep-24 15:26:23 GMT; domain=.groq.com; HttpOnly; Secure;
+        SameSite=None
+      alt-svc:
+      - h3=":443"; ma=86400
+      retry-after:
+      - '24'
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '-274'
+      x-ratelimit-reset-requests:
+      - 4.524s
+      x-ratelimit-reset-tokens:
+      - 1m3.293s
+      x-request-id:
+      - req_01j76frxhje0sa6z5cntg09tah
+    status:
+      code: 429
+      message: Too Many Requests
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/utils/Transformers.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.utils;\n\nimport com.redhat.coolstore.model.CatalogItemEntity;\nimport
+      com.redhat.coolstore.model.Order;\nimport com.redhat.coolstore.model.OrderItem;\nimport
+      com.redhat.coolstore.model.Product;\nimport com.redhat.coolstore.model.ShoppingCart;\nimport
+      java.io.StringReader;\nimport java.io.StringWriter;\nimport java.util.ArrayList;\nimport
+      java.util.List;\nimport jakarta.json.Json;\nimport jakarta.json.JsonArray;\nimport
+      jakarta.json.JsonArrayBuilder;\nimport jakarta.json.JsonObject;\nimport jakarta.json.JsonReader;\nimport
+      jakarta.json.JsonWriter;\n\nimport java.util.concurrent.ThreadLocalRandom;\nimport
+      java.util.logging.Logger;\n\n/**\n * Created by tqvarnst on 2017-03-30.\n */\npublic
+      class Transformers {\n\n    private static final String[] RANDOM_NAMES = {\"Sven
+      Karlsson\",\"Johan Andersson\",\"Karl Svensson\",\"Anders Johansson\",\"Stefan
+      Olson\",\"Martin Ericsson\"};\n    private static final String[] RANDOM_EMAILS
+      = {\"sven@gmail.com\",\"johan@gmail.com\",\"karl@gmail.com\",\"anders@gmail.com\",\"stefan@gmail.com\",\"martin@gmail.com\"};\n\n    private
+      static Logger log = Logger.getLogger(Transformers.class.getName());\n\n    public
+      static Product toProduct(CatalogItemEntity entity) {\n        Product prod =
+      new Product();\n        prod.setItemId(entity.getItemId());\n        prod.setName(entity.getName());\n        prod.setDesc(entity.getDesc());\n        prod.setPrice(entity.getPrice());\n        if
+      (entity.getInventory() != null) {\n            prod.setLocation(entity.getInventory().getLocation());\n            prod.setLink(entity.getInventory().getLink());\n            prod.setQuantity(entity.getInventory().getQuantity());\n        }
+      else {\n            log.warning(\"Inventory for \" + entity.getName() + \"[\"
+      + entity.getItemId()+ \"] unknown and missing\");\n        }\n        return
+      prod;\n    }\n\n    public static String shoppingCartToJson(ShoppingCart cart)
+      {\n        JsonArrayBuilder cartItems = Json.createArrayBuilder();\n        cart.getShoppingCartItemList().forEach(item
+      -> {\n            cartItems.add(Json.createObjectBuilder()\n                .add(\"productSku\",item.getProduct().getItemId())\n                .add(\"quantity\",item.getQuantity())\n            );\n        });\n\n        int
+      randomNameAndEmailIndex = ThreadLocalRandom.current().nextInt(RANDOM_NAMES.length);\n\n        JsonObject
+      jsonObject = Json.createObjectBuilder()\n            .add(\"orderValue\", Double.valueOf(cart.getCartTotal()))\n            .add(\"customerName\",RANDOM_NAMES[randomNameAndEmailIndex])\n            .add(\"customerEmail\",RANDOM_EMAILS[randomNameAndEmailIndex])\n            .add(\"retailPrice\",
+      cart.getShoppingCartItemList().stream().mapToDouble(i -> i.getQuantity()*i.getPrice()).sum())\n            .add(\"discount\",
+      Double.valueOf(cart.getCartItemPromoSavings()))\n            .add(\"shippingFee\",
+      Double.valueOf(cart.getShippingTotal()))\n            .add(\"shippingDiscount\",
+      Double.valueOf(cart.getShippingPromoSavings()))\n            .add(\"items\",cartItems)
+      \n            .build();\n        StringWriter w = new StringWriter();\n        try
+      (JsonWriter writer = Json.createWriter(w)) {\n            writer.write(jsonObject);\n        }\n        return
+      w.toString();\n    }\n\n    public static Order jsonToOrder(String json) {\n        JsonReader
+      jsonReader = Json.createReader(new StringReader(json));\n        JsonObject
+      rootObject = jsonReader.readObject();\n        Order order = new Order();\n        order.setCustomerName(rootObject.getString(\"customerName\"));\n        order.setCustomerEmail(rootObject.getString(\"customerEmail\"));\n        order.setOrderValue(rootObject.getJsonNumber(\"orderValue\").doubleValue());\n        order.setRetailPrice(rootObject.getJsonNumber(\"retailPrice\").doubleValue());\n        order.setDiscount(rootObject.getJsonNumber(\"discount\").doubleValue());\n        order.setShippingFee(rootObject.getJsonNumber(\"shippingFee\").doubleValue());\n        order.setShippingDiscount(rootObject.getJsonNumber(\"shippingDiscount\").doubleValue());\n        JsonArray
+      jsonItems = rootObject.getJsonArray(\"items\");\n        List<OrderItem> items
+      = new ArrayList<OrderItem>(jsonItems.size());\n        for (JsonObject jsonItem
+      : jsonItems.getValuesAs(JsonObject.class)) {\n            OrderItem oi = new
+      OrderItem();\n            oi.setProductId(jsonItem.getString(\"productSku\"));\n            oi.setQuantity(jsonItem.getInt(\"quantity\"));\n            items.add(oi);\n        }\n        order.setItemList(items);
+      \n        return order;\n    }\n\n\n}\n\n```\n\n## Issues\n\n### incident 0\nincident
+      to fix: \"Replace the `javax.json` import statement with `jakarta.json`\"\nLine
+      number: 12\n### incident 1\nincident to fix: \"Replace the `javax.json` import
+      statement with `jakarta.json`\"\nLine number: 13\n### incident 2\nincident to
+      fix: \"Replace the `javax.json` import statement with `jakarta.json`\"\nLine
+      number: 14\n### incident 3\nincident to fix: \"Replace the `javax.json` import
+      statement with `jakarta.json`\"\nLine number: 15\n### incident 4\nincident to
+      fix: \"Replace the `javax.json` import statement with `jakarta.json`\"\nLine
+      number: 16\n### incident 5\nincident to fix: \"Replace the `javax.json` import
+      statement with `jakarta.json`\"\nLine number: 17\n\n# Output Instructions\nStructure
+      your output in Markdown format such as:\n\n## Reasoning\nWrite the step by step
+      reasoning in this markdown section. If you are unsure of a step or reasoning,
+      clearly state you are unsure and why.\n\n## Updated File\n```java\n// Write
+      the updated file for Quarkus in this section. If the file should be removed,
+      make the content of the updated file a comment explaining it should be removed.\n```\n\n##
+      Additional Information (optional)\n\nIf you have any additional details or steps
+      that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
+      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: !!binary |
+        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
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf78c289815b199-NBO
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:56:50 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      alt-svc:
+      - h3=":443"; ma=86400
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '49'
+      x-ratelimit-reset-requests:
+      - 6s
+      x-ratelimit-reset-tokens:
+      - 59.409s
+      x-request-id:
+      - req_01j76fsnfyeap8gfqzsezh99tr
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,243 @@
+interactions:
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/rest/RestApplication.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.rest;\n\nimport jakarta.ws.rs.ApplicationPath;\nimport
+      jakarta.ws.rs.core.Application;\n\n// JAX-RS activation is no longer necessary.
+      You can set a root path like this but you don''t have to.\n// @ApplicationPath(\"/services\")\npublic
+      class RestApplication extends Application {\n\n}\n\n```\n\n## Issues\n\n###
+      incident 0\nincident to fix: \"Replace the `javax.ws` import statement with
+      `jakarta.ws`\"\nLine number: 3\n### incident 1\nincident to fix: \"Replace the
+      `javax.ws` import statement with `jakarta.ws`\"\nLine number: 4\n### incident
+      2\nincident to fix: \"JAX-RS activation is no longer necessary. You can set
+      a root path like this but you don''t have to.\"\nLine number: 7\n### incident
+      3\nincident to fix: \"JAX-RS activation is no longer necessary. You can set
+      a root path like this but you don''t have to.\"\nLine number: 8\n\n# Output
+      Instructions\nStructure your output in Markdown format such as:\n\n## Reasoning\nWrite
+      the step by step reasoning in this markdown section. If you are unsure of a
+      step or reasoning, clearly state you are unsure and why.\n\n## Updated File\n```java\n//
+      Write the updated file for Quarkus in this section. If the file should be removed,
+      make the content of the updated file a comment explaining it should be removed.\n```\n\n##
+      Additional Information (optional)\n\nIf you have any additional details or steps
+      that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
+      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
+        in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
+        Limit 5000, Used 5470, Requested 650. Please try again in 13.442s. Visit https://console.groq.com/docs/rate-limits
+        for more information.","type":"tokens","code":"rate_limit_exceeded"}}
+
+        '
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf776365ab18a6a-MBA
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '333'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:41:49 GMT
+      Server:
+      - cloudflare
+      alt-svc:
+      - h3=":443"; ma=86400
+      retry-after:
+      - '14'
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '-470'
+      x-ratelimit-reset-requests:
+      - 3.941999999s
+      x-ratelimit-reset-tokens:
+      - 1m5.642s
+      x-request-id:
+      - req_01j76ey7wge2mtkvzwgxyjtmna
+    status:
+      code: 429
+      message: Too Many Requests
+- request:
+    body: '{"messages": [{"role": "user", "content": "I will give you a JavaEE file
+      for which I want to take one step towards migrating to Quarkus.\n\nI will provide
+      you with static source code analysis information highlighting an issue which
+      needs to be addressed.\n\nI will also provide you with an example of how a similar
+      issue was solved in the past via a solved example.\n\nYou can refer to the solved
+      example for a pattern of how to update the input Java EE file to Quarkus.\n\nFix
+      only the problem described. Other problems will be solved in subsequent steps
+      so it is unnecessary to handle them now.\n\nBefore attempting to migrate the
+      code to Quarkus reason through what changes are required and why.\n\nPay attention
+      to changes you make and impacts to external dependencies in the pom.xml as well
+      as changes to imports we need to consider.\n\nRemember when updating or adding
+      annotations that the class must be imported.\n\nAs you make changes that impact
+      the pom.xml or imports, be sure you explain what needs to be updated.\n\nAfter
+      you have shared your step by step thinking, provide a full output of the updated
+      file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/rest/RestApplication.java\"\nSource
+      file contents:\n```java\npackage com.redhat.coolstore.rest;\n\nimport jakarta.ws.rs.ApplicationPath;\nimport
+      jakarta.ws.rs.core.Application;\n\n// JAX-RS activation is no longer necessary.
+      You can set a root path like this but you don''t have to.\n// @ApplicationPath(\"/services\")\npublic
+      class RestApplication extends Application {\n\n}\n\n```\n\n## Issues\n\n###
+      incident 0\nincident to fix: \"Replace the `javax.ws` import statement with
+      `jakarta.ws`\"\nLine number: 3\n### incident 1\nincident to fix: \"Replace the
+      `javax.ws` import statement with `jakarta.ws`\"\nLine number: 4\n### incident
+      2\nincident to fix: \"JAX-RS activation is no longer necessary. You can set
+      a root path like this but you don''t have to.\"\nLine number: 7\n### incident
+      3\nincident to fix: \"JAX-RS activation is no longer necessary. You can set
+      a root path like this but you don''t have to.\"\nLine number: 8\n\n# Output
+      Instructions\nStructure your output in Markdown format such as:\n\n## Reasoning\nWrite
+      the step by step reasoning in this markdown section. If you are unsure of a
+      step or reasoning, clearly state you are unsure and why.\n\n## Updated File\n```java\n//
+      Write the updated file for Quarkus in this section. If the file should be removed,
+      make the content of the updated file a comment explaining it should be removed.\n```\n\n##
+      Additional Information (optional)\n\nIf you have any additional details or steps
+      that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
+      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+    headers:
+      accept:
+      - application/json
+      accept-encoding:
+      - gzip, deflate
+      connection:
+      - keep-alive
+      content-type:
+      - application/json
+      host:
+      - api.groq.com
+      user-agent:
+      - Groq/Python 0.11.0
+      x-stainless-arch:
+      - x64
+      x-stainless-async:
+      - 'false'
+      x-stainless-lang:
+      - python
+      x-stainless-os:
+      - Linux
+      x-stainless-package-version:
+      - 0.11.0
+      x-stainless-runtime:
+      - CPython
+      x-stainless-runtime-version:
+      - 3.12.5
+    method: POST
+    uri: https://api.groq.com/openai/v1/chat/completions
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA4xV227jNhB971cMmIe2gaxIVnyJigLNwxbNPrXZDdCiLmyKGtlcUxyFQ/mCIP9e
+        kL7E2RZo9Tg8wzlzzgz1InQtSqFW0qu2M4MqqyZ3d/lwoG4n9eA2y5rBtFY4mDSyyifDupmqWiSC
+        qi+o/DExVdR2Br0mKxKhHEqPtSjzyXA0GWb5sEhESzUaUYpW77yTZjDdTapBMZyMpyFjRVohi/LP
+        F6FtjTtRZolokVkuUZQvwpFBUQrJrNlL60MOWY82MLi6gkeUTFbb5czObJ7C9bW2StdoPWQw67Ns
+        OIb8+rqEzyuEj3Ij4cMH6KRayyXC4ovcyF265dTxAlaSoUK04NDKFmvwFBBr6bw8YbSF33rp1j2n
+        4UaHDTlMYItg8ZDhsDNSIfgVgm47ch7YS48tWs9AFoy2yFCAtDXcpoH28B3t4Yl2EWh/vP998PgJ
+        pPJ6I4PMoBksgSG7RAcWVdDK7S+YJSAZtAfZe2ql10oasweHS80eHZ+udMjUO4UcmXSONrpGd+gL
+        Fj/dd53RKpb8VfrVAqS15M8Uej60y+hjq5VkhKfHB2jIxYB8y0/hF9riBl3yjuUWQUl7vsEReeik
+        XwVQCCwur+gcdei8Rl5Aow1Cz9ouD7jnoyMO2addJHuE71P4ROdKDlvaIJADRW3wA6iPtRkPrkQ3
+        rq7gqavDHMPP2uDMLhZxTmb2NDaK2tRhfRh/MuzJYSz+Q8g/mv5ucFIVIBeSRuTNzf+2N4U/qD/L
+        JS/EMnodhk0zVL2HPfVQk/3Ww0puEDylsczXbn43EzeMbhN2bya+n9mur4xWoIxkhkdkf5EAuPNo
+        a4bL2Eto4DWKcxTtvq51OJIGHmxDro3AcDiA+8ajgz7IenItmJhAK9cI3LtA9XB+2JxFR226a83R
+        7LhX0Txp99Dbt7GvsUNbo1UaGRya6Jun86qTO2qcRh6GKQFFlsOsvyfkkX2sxpEL42lSjydOtrgl
+        t2bgXq3Cji2OgCer/WdkvwjVTsEH63HpogbxLNZ/aKJDW2n95fK8ufkv25OArOuDZGQMbQPfMK3h
+        gv9ckzLoDxBdAvjHovz4NgUHlHhNhKFl56hiUdremEQ02mpezV18aUUp2FMnXv9KRH96pJ977HHu
+        dYuizNIsy4usKMZFdvzyaSI6R23n557WaFmU42nxFjvlFflwPB1nk/DEn/4q54xi8lX8mDXO7u6y
+        bJRNE+HJS3NOyLNxdo6dwLd5Pr7L89FrInjPHtt5o8OmdU7HP0rTzdWoGWbVqKpykYjdfOnoOfQY
+        /5UOn+dZ/mUyxn1XOByNN4ib57WqVyOXb8Xr6zd/AwAA//8DALR2c+JVBwAA
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 8bf77692faf5b19c-NBO
+      Cache-Control:
+      - private, max-age=0, no-store, no-cache, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 07 Sep 2024 14:42:04 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      alt-svc:
+      - h3=":443"; ma=86400
+      vary:
+      - Origin
+      via:
+      - 1.1 google
+      x-ratelimit-limit-requests:
+      - '14400'
+      x-ratelimit-limit-tokens:
+      - '5000'
+      x-ratelimit-remaining-requests:
+      - '14399'
+      x-ratelimit-remaining-tokens:
+      - '94'
+      x-ratelimit-reset-requests:
+      - 6s
+      x-ratelimit-reset-tokens:
+      - 58.861s
+      x-request-id:
+      - req_01j76eyp3re56veevqkcdh5r1w
+    status:
+      code: 200
+      message: OK
+version: 1
