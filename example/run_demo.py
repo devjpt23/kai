@@ -52,6 +52,7 @@ def generate_fix(params: PostGetIncidentSolutionsForFileParams):
         try:
             response = _generate_fix(params)
             if response.status_code == 200:
+                # print(f"This is the KAI server response: {response.text}")
                 return response
             else:
                 KAI_LOG.info(
@@ -64,6 +65,7 @@ def generate_fix(params: PostGetIncidentSolutionsForFileParams):
         KAI_LOG.error(
             f"[{params.file_name}] Failed to get a '200' response from the server.  Retrying {retries_left-i} more times"
         )
+        # print(f"This is the KAI server response: {response.text}")
     sys.exit(
         f"[{params.file_name}] Failed to get a '200' response from the server.  Parameters = {params}"
     )
