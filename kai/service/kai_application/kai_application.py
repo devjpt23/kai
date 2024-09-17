@@ -1,6 +1,7 @@
 import logging
 import time
 import traceback
+import threading
 from typing import Iterator, Optional
 
 from aiohttp import web
@@ -26,7 +27,6 @@ from kai.service.solution_handling.production import solution_producer_factory
 
 KAI_LOG = logging.getLogger(__name__)
 
-
 # TODO: Possibly merge with FileSolutionContent?
 class UpdatedFileContent(BaseModel):
     updated_file: str
@@ -46,6 +46,8 @@ class KaiApplication:
     A Kai application that can be used to interact with the LLM and incident
     store. Its main job is to generate "fixes" for given incidents.
     """
+    total_tokens = 0
+    lock = threading.Lock()
 
     def __init__(self, config: KaiConfig):
         self.config = config
@@ -167,7 +169,6 @@ class KaiApplication:
             trace.prompt(count, prompt, pb_vars)
 
             # Send the prompt to the llm
-
             KAI_LOG.debug(f"Sending prompt: {prompt}")
             llm_result = None
             for retry_attempt_count in range(self.model_provider.llm_retries):
@@ -179,7 +180,14 @@ class KaiApplication:
                         f'{file_name.replace("/", "-")}',
                     ):
                         llm_result = self.model_provider.llm.invoke(prompt)
+                        meta_data = llm_result.response_metadata
+                        tokens = meta_data['token_usage']['total_tokens']
+                        KaiApplication.lock.acquire()
+                        KaiApplication.total_tokens += tokens
+                        KAI_LOG.info(f"Tokens: {tokens} for file {file_name}")
+                        KAI_LOG.info(f"Total tokens: {KaiApplication.total_tokens}, Time: {time.ctime(time.time())}")
                         trace.llm_result(count, retry_attempt_count, llm_result)
+                        KaiApplication.lock.release()
 
                         content = parse_file_solution_content(
                             src_file_language, llm_result.content
