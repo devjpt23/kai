@@ -16,11 +16,10 @@ interactions:
       you have shared your step by step thinking, provide a full output of the updated
       file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/rest/OrderEndpoint.java\"\nSource
       file contents:\n```java\npackage com.redhat.coolstore.rest;\n\nimport java.io.Serializable;\nimport
-      java.util.List;\n\nimport jakarta.enterprise.context.RequestScoped;\nimport
-      jakarta.inject.Inject;\nimport jakarta.ws.rs.Consumes;\nimport jakarta.ws.rs.GET;\nimport
-      jakarta.ws.rs.Path;\nimport jakarta.ws.rs.PathParam;\nimport jakarta.ws.rs.Produces;\nimport
-      jakarta.ws.rs.core.MediaType;\n\nimport com.redhat.coolstore.model.Order;\nimport
-      com.redhat.coolstore.service.OrderService;\n\n@RequestScoped\n@Path(\"/orders\")\n@Consumes(MediaType.APPLICATION_JSON)\n@Produces(MediaType.APPLICATION_JSON)\npublic
+      java.util.List;\n\nimport javax.enterprise.context.RequestScoped;\nimport javax.inject.Inject;\nimport
+      javax.ws.rs.Consumes;\nimport javax.ws.rs.GET;\nimport javax.ws.rs.Path;\nimport
+      javax.ws.rs.PathParam;\nimport javax.ws.rs.Produces;\nimport javax.ws.rs.core.MediaType;\n\nimport
+      com.redhat.coolstore.model.Order;\nimport com.redhat.coolstore.service.OrderService;\n\n@RequestScoped\n@Path(\"/orders\")\n@Consumes(MediaType.APPLICATION_JSON)\n@Produces(MediaType.APPLICATION_JSON)\npublic
       class OrderEndpoint implements Serializable {\n\n    private static final long
       serialVersionUID = -7227732980791688774L;\n\n    @Inject\n    private OrderService
       os;\n\n\n    @GET\n    @Path(\"/\")\n    public List<Order> listAll() {\n        return
@@ -45,7 +44,7 @@ interactions:
       make the content of the updated file a comment explaining it should be removed.\n```\n\n##
       Additional Information (optional)\n\nIf you have any additional details or steps
       that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
-      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+      "max_tokens": 4096, "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -57,29 +56,13 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
         in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
-        Limit 5000, Used 6649, Requested 909. Please try again in 30.701s. Visit https://console.groq.com/docs/rate-limits
+        Limit 5000, Used 7104, Requested 905. Please try again in 36.117s. Visit https://console.groq.com/docs/rate-limits
         for more information.","type":"tokens","code":"rate_limit_exceeded"}}
 
         '
@@ -87,7 +70,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bf774f2cb8db196-NBO
+      - 8c4f9bc98f210372-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -97,17 +80,13 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 07 Sep 2024 14:40:57 GMT
+      - Wed, 18 Sep 2024 07:26:34 GMT
       Server:
       - cloudflare
-      Set-Cookie:
-      - __cf_bm=E.ViSu8xlJFs067gTLT5S4u0EGUMN4MvBY6bGTKGNbg-1725720057-1.0.1.1-KLqQbdHhz.s.wlezTaVwsDMnMWezn3X1UzusqbU.NOiRPZUsNa.YvQfSDtWIb5uxbxfJqEXJPegp8NHW0naBkQ;
-        path=/; expires=Sat, 07-Sep-24 15:10:57 GMT; domain=.groq.com; HttpOnly; Secure;
-        SameSite=None
       alt-svc:
       - h3=":443"; ma=86400
       retry-after:
-      - '31'
+      - '37'
       vary:
       - Origin
       via:
@@ -119,13 +98,13 @@ interactions:
       x-ratelimit-remaining-requests:
       - '14399'
       x-ratelimit-remaining-tokens:
-      - '-1649'
+      - '-2104'
       x-ratelimit-reset-requests:
-      - 2.147s
+      - 2.164s
       x-ratelimit-reset-tokens:
-      - 1m19.793s
+      - 1m25.257s
       x-request-id:
-      - req_01j76ewn2ve52bae3gvjm8f4f0
+      - req_01j820d6mbefhbadjp80tg1pzk
     status:
       code: 429
       message: Too Many Requests
@@ -146,11 +125,10 @@ interactions:
       you have shared your step by step thinking, provide a full output of the updated
       file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/rest/OrderEndpoint.java\"\nSource
       file contents:\n```java\npackage com.redhat.coolstore.rest;\n\nimport java.io.Serializable;\nimport
-      java.util.List;\n\nimport jakarta.enterprise.context.RequestScoped;\nimport
-      jakarta.inject.Inject;\nimport jakarta.ws.rs.Consumes;\nimport jakarta.ws.rs.GET;\nimport
-      jakarta.ws.rs.Path;\nimport jakarta.ws.rs.PathParam;\nimport jakarta.ws.rs.Produces;\nimport
-      jakarta.ws.rs.core.MediaType;\n\nimport com.redhat.coolstore.model.Order;\nimport
-      com.redhat.coolstore.service.OrderService;\n\n@RequestScoped\n@Path(\"/orders\")\n@Consumes(MediaType.APPLICATION_JSON)\n@Produces(MediaType.APPLICATION_JSON)\npublic
+      java.util.List;\n\nimport javax.enterprise.context.RequestScoped;\nimport javax.inject.Inject;\nimport
+      javax.ws.rs.Consumes;\nimport javax.ws.rs.GET;\nimport javax.ws.rs.Path;\nimport
+      javax.ws.rs.PathParam;\nimport javax.ws.rs.Produces;\nimport javax.ws.rs.core.MediaType;\n\nimport
+      com.redhat.coolstore.model.Order;\nimport com.redhat.coolstore.service.OrderService;\n\n@RequestScoped\n@Path(\"/orders\")\n@Consumes(MediaType.APPLICATION_JSON)\n@Produces(MediaType.APPLICATION_JSON)\npublic
       class OrderEndpoint implements Serializable {\n\n    private static final long
       serialVersionUID = -7227732980791688774L;\n\n    @Inject\n    private OrderService
       os;\n\n\n    @GET\n    @Path(\"/\")\n    public List<Order> listAll() {\n        return
@@ -175,7 +153,7 @@ interactions:
       make the content of the updated file a comment explaining it should be removed.\n```\n\n##
       Additional Information (optional)\n\nIf you have any additional details or steps
       that need to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768",
-      "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
+      "max_tokens": 4096, "n": 1, "stop": null, "stream": false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -187,53 +165,37 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: !!binary |
-        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
+        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
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bf775b7cfb8b19c-NBO
+      - 8c4f9cb4189fb196-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -243,7 +205,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 07 Sep 2024 14:41:29 GMT
+      - Wed, 18 Sep 2024 07:27:13 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -261,13 +223,13 @@ interactions:
       x-ratelimit-remaining-requests:
       - '14399'
       x-ratelimit-remaining-tokens:
-      - '68'
+      - '118'
       x-ratelimit-reset-requests:
       - 6s
       x-ratelimit-reset-tokens:
-      - 59.178s
+      - 58.581s
       x-request-id:
-      - req_01j76exkvyfp49wczfqrf4y57d
+      - req_01j820eb95et8bsz81qqyb0gdv
     status:
       code: 200
       message: OK

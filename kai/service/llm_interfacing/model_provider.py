@@ -107,13 +107,10 @@ class ModelProvider:
                     "model": "mixtral-8x7b-32768",
                     "temperature":0,
                     "max_tokens":4096,
-                    # "max_retries":2,
                     "streaming":False,
-                    # "groq_api_key":api_key
                 }
 
                 model_args = deep_update(defaults, config.args)
-                print(f"Using tokens dev: {model_args['max_tokens']}")
                 model_id = model_args["model"]
 
 

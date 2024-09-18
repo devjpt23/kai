@@ -137,6 +137,17 @@ class KaiTrace:
         os.makedirs(os.path.dirname(result_file_path), exist_ok=True)
         with open(result_file_path, "w") as f:
             f.write(result.pretty_repr())
+    
+    @enabled_check
+    def meta_Data(
+        self, current_batch_count:int, retry_count: int, mt_data: dict
+    ):
+        mt_file_path = os.path.join(
+            self.trace_dir, f"{current_batch_count}", f"{retry_count}", "response_metadata.json"
+        )
+        os.makedirs(os.path.dirname(mt_file_path), exist_ok=True)
+        with open(mt_file_path,"w") as f:
+            f.write(json.dumps(mt_data, indent=4))
 
     @enabled_check
     def exception(

@@ -26,28 +26,28 @@ interactions:
       under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES
       OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for
       the specific language governing permissions and\n    limitations under the License.\n-->\n<!--
-      Marker file indicating CDI should be enabled -->\n<beans xmlns=\"https://jakarta.ee/xml/ns/jakartaee\"
-      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n\t   xsi:schemaLocation=\"\n      https://jakarta.ee/xml/ns/jakartaee\n      https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd\"\n\t   bean-discovery-mode=\"all\"
-      version=\"3.0\">\n</beans>\n```\n\n## Issues\n\n### incident 0\nincident to
-      fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee` with `https://jakarta.ee/xml/ns/jakartaee`
-      and change the schema version number\"\nLine number: 18\n### incident 1\nincident
-      to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee` with `https://jakarta.ee/xml/ns/jakartaee`
-      and change the schema version number\"\nLine number: 20\n### incident 2\nincident
-      to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee` with `https://jakarta.ee/xml/ns/jakartaee`
-      and change the schema version number\"\nLine number: 21\n### incident 3\nincident
-      to fix: \"Replace `beans_1_1.xsd` with `beans_3_0.xsd` and update the version
-      attribute to `\"3.0\"`\"\nLine number: 21\n### incident 4\nincident to fix:
-      \"`beans.xml` descriptor content is ignored and it could be removed from the
-      application. \n Refer to the guide referenced below to check the supported CDI
-      feature in Quarkus.\"\nLine number: 18\n\n# Output Instructions\nStructure your
-      output in Markdown format such as:\n\n## Reasoning\nWrite the step by step reasoning
-      in this markdown section. If you are unsure of a step or reasoning, clearly
-      state you are unsure and why.\n\n## Updated File\n```java\n// Write the updated
-      file for Quarkus in this section. If the file should be removed, make the content
-      of the updated file a comment explaining it should be removed.\n```\n\n## Additional
-      Information (optional)\n\nIf you have any additional details or steps that need
-      to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768", "n": 1,
-      "stop": null, "stream": false, "temperature": 1e-08}'
+      Marker file indicating CDI should be enabled -->\n<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\"
+      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n\t   xsi:schemaLocation=\"\n      http://xmlns.jcp.org/xml/ns/javaee\n      http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd\"\n\t   bean-discovery-mode=\"all\">\n</beans>\n```\n\n##
+      Issues\n\n### incident 0\nincident to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee`
+      with `https://jakarta.ee/xml/ns/jakartaee` and change the schema version number\"\nLine
+      number: 18\n### incident 1\nincident to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee`
+      with `https://jakarta.ee/xml/ns/jakartaee` and change the schema version number\"\nLine
+      number: 20\n### incident 2\nincident to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee`
+      with `https://jakarta.ee/xml/ns/jakartaee` and change the schema version number\"\nLine
+      number: 21\n### incident 3\nincident to fix: \"Replace `beans_1_1.xsd` with
+      `beans_3_0.xsd` and update the version attribute to `\"3.0\"`\"\nLine number:
+      21\n### incident 4\nincident to fix: \"`beans.xml` descriptor content is ignored
+      and it could be removed from the application. \n Refer to the guide referenced
+      below to check the supported CDI feature in Quarkus.\"\nLine number: 18\n\n#
+      Output Instructions\nStructure your output in Markdown format such as:\n\n##
+      Reasoning\nWrite the step by step reasoning in this markdown section. If you
+      are unsure of a step or reasoning, clearly state you are unsure and why.\n\n##
+      Updated File\n```java\n// Write the updated file for Quarkus in this section.
+      If the file should be removed, make the content of the updated file a comment
+      explaining it should be removed.\n```\n\n## Additional Information (optional)\n\nIf
+      you have any additional details or steps that need to be performed, put it here.\n\n"}],
+      "model": "mixtral-8x7b-32768", "max_tokens": 4096, "n": 1, "stop": null, "stream":
+      false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -59,29 +59,13 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
         in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
-        Limit 5000, Used 4718, Requested 957. Please try again in 8.091s. Visit https://console.groq.com/docs/rate-limits
+        Limit 5000, Used 4524, Requested 953. Please try again in 5.724s. Visit https://console.groq.com/docs/rate-limits
         for more information.","type":"tokens","code":"rate_limit_exceeded"}}
 
         '
@@ -89,7 +73,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bf729a7c981b195-NBO
+      - 8c4f8ae5aa3eb195-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -99,13 +83,13 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 07 Sep 2024 13:49:33 GMT
+      - Wed, 18 Sep 2024 07:15:03 GMT
       Server:
       - cloudflare
       alt-svc:
       - h3=":443"; ma=86400
       retry-after:
-      - '9'
+      - '6'
       vary:
       - Origin
       via:
@@ -117,13 +101,13 @@ interactions:
       x-ratelimit-remaining-requests:
       - '14400'
       x-ratelimit-remaining-tokens:
-      - '282'
+      - '476'
       x-ratelimit-reset-requests:
       - 0s
       x-ratelimit-reset-tokens:
-      - 56.607s
+      - 54.288s
       x-request-id:
-      - req_01j76byhbqehpvndzydzksbrh3
+      - req_01j81zr316enwbq10mn6at6wgd
     status:
       code: 429
       message: Too Many Requests
@@ -154,28 +138,28 @@ interactions:
       under the License is distributed on an \"AS IS\" BASIS,\n    WITHOUT WARRANTIES
       OR CONDITIONS OF ANY KIND, either express or implied.\n    See the License for
       the specific language governing permissions and\n    limitations under the License.\n-->\n<!--
-      Marker file indicating CDI should be enabled -->\n<beans xmlns=\"https://jakarta.ee/xml/ns/jakartaee\"
-      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n\t   xsi:schemaLocation=\"\n      https://jakarta.ee/xml/ns/jakartaee\n      https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd\"\n\t   bean-discovery-mode=\"all\"
-      version=\"3.0\">\n</beans>\n```\n\n## Issues\n\n### incident 0\nincident to
-      fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee` with `https://jakarta.ee/xml/ns/jakartaee`
-      and change the schema version number\"\nLine number: 18\n### incident 1\nincident
-      to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee` with `https://jakarta.ee/xml/ns/jakartaee`
-      and change the schema version number\"\nLine number: 20\n### incident 2\nincident
-      to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee` with `https://jakarta.ee/xml/ns/jakartaee`
-      and change the schema version number\"\nLine number: 21\n### incident 3\nincident
-      to fix: \"Replace `beans_1_1.xsd` with `beans_3_0.xsd` and update the version
-      attribute to `\"3.0\"`\"\nLine number: 21\n### incident 4\nincident to fix:
-      \"`beans.xml` descriptor content is ignored and it could be removed from the
-      application. \n Refer to the guide referenced below to check the supported CDI
-      feature in Quarkus.\"\nLine number: 18\n\n# Output Instructions\nStructure your
-      output in Markdown format such as:\n\n## Reasoning\nWrite the step by step reasoning
-      in this markdown section. If you are unsure of a step or reasoning, clearly
-      state you are unsure and why.\n\n## Updated File\n```java\n// Write the updated
-      file for Quarkus in this section. If the file should be removed, make the content
-      of the updated file a comment explaining it should be removed.\n```\n\n## Additional
-      Information (optional)\n\nIf you have any additional details or steps that need
-      to be performed, put it here.\n\n"}], "model": "mixtral-8x7b-32768", "n": 1,
-      "stop": null, "stream": false, "temperature": 1e-08}'
+      Marker file indicating CDI should be enabled -->\n<beans xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\"
+      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n\t   xsi:schemaLocation=\"\n      http://xmlns.jcp.org/xml/ns/javaee\n      http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd\"\n\t   bean-discovery-mode=\"all\">\n</beans>\n```\n\n##
+      Issues\n\n### incident 0\nincident to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee`
+      with `https://jakarta.ee/xml/ns/jakartaee` and change the schema version number\"\nLine
+      number: 18\n### incident 1\nincident to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee`
+      with `https://jakarta.ee/xml/ns/jakartaee` and change the schema version number\"\nLine
+      number: 20\n### incident 2\nincident to fix: \"Replace `http://xmlns.jcp.org/xml/ns/javaee`
+      with `https://jakarta.ee/xml/ns/jakartaee` and change the schema version number\"\nLine
+      number: 21\n### incident 3\nincident to fix: \"Replace `beans_1_1.xsd` with
+      `beans_3_0.xsd` and update the version attribute to `\"3.0\"`\"\nLine number:
+      21\n### incident 4\nincident to fix: \"`beans.xml` descriptor content is ignored
+      and it could be removed from the application. \n Refer to the guide referenced
+      below to check the supported CDI feature in Quarkus.\"\nLine number: 18\n\n#
+      Output Instructions\nStructure your output in Markdown format such as:\n\n##
+      Reasoning\nWrite the step by step reasoning in this markdown section. If you
+      are unsure of a step or reasoning, clearly state you are unsure and why.\n\n##
+      Updated File\n```java\n// Write the updated file for Quarkus in this section.
+      If the file should be removed, make the content of the updated file a comment
+      explaining it should be removed.\n```\n\n## Additional Information (optional)\n\nIf
+      you have any additional details or steps that need to be performed, put it here.\n\n"}],
+      "model": "mixtral-8x7b-32768", "max_tokens": 4096, "n": 1, "stop": null, "stream":
+      false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -187,51 +171,44 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: !!binary |
-        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
+        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
+        AwA7DN/07wsAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bf729e35bea0372-NBO
+      - 8c4f8b0e6fa9b196-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -241,7 +218,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 07 Sep 2024 13:49:43 GMT
+      - Wed, 18 Sep 2024 07:15:10 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -259,13 +236,13 @@ interactions:
       x-ratelimit-remaining-requests:
       - '14399'
       x-ratelimit-remaining-tokens:
-      - '120'
+      - '66'
       x-ratelimit-reset-requests:
       - 6s
       x-ratelimit-reset-tokens:
-      - 58.558s
+      - 59.199s
       x-request-id:
-      - req_01j76bytnkewjs6bxpfv016q4y
+      - req_01j81zr9d3ekbapej47ffsz9sj
     status:
       code: 200
       message: OK

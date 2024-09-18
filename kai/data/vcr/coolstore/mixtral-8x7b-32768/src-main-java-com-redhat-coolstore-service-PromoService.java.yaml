@@ -17,7 +17,7 @@ interactions:
       file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/service/PromoService.java\"\nSource
       file contents:\n```java\npackage com.redhat.coolstore.service;\n\nimport java.io.Serializable;\nimport
       java.util.HashMap;\nimport java.util.HashSet;\nimport java.util.Map;\nimport
-      java.util.Set;\n\nimport jakarta.enterprise.context.ApplicationScoped;\n\nimport
+      java.util.Set;\n\nimport javax.enterprise.context.ApplicationScoped;\n\nimport
       com.redhat.coolstore.model.Promotion;\nimport com.redhat.coolstore.model.ShoppingCart;\nimport
       com.redhat.coolstore.model.ShoppingCartItem;\n\n@ApplicationScoped\npublic class
       PromoService implements Serializable {\n\n    private static final long serialVersionUID
@@ -52,8 +52,8 @@ interactions:
       in this section. If the file should be removed, make the content of the updated
       file a comment explaining it should be removed.\n```\n\n## Additional Information
       (optional)\n\nIf you have any additional details or steps that need to be performed,
-      put it here.\n\n"}], "model": "mixtral-8x7b-32768", "n": 1, "stop": null, "stream":
-      false, "temperature": 1e-08}'
+      put it here.\n\n"}], "model": "mixtral-8x7b-32768", "max_tokens": 4096, "n":
+      1, "stop": null, "stream": false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -65,29 +65,13 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
         in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
-        Limit 5000, Used 5401, Requested 1120. Please try again in 18.256s. Visit
+        Limit 5000, Used 5468, Requested 1120. Please try again in 19.067s. Visit
         https://console.groq.com/docs/rate-limits for more information.","type":"tokens","code":"rate_limit_exceeded"}}
 
         '
@@ -95,7 +79,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bf787ca29cab195-NBO
+      - 8c4faed6fb501b5a-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -105,13 +89,13 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 07 Sep 2024 14:53:48 GMT
+      - Wed, 18 Sep 2024 07:39:35 GMT
       Server:
       - cloudflare
       alt-svc:
       - h3=":443"; ma=86400
       retry-after:
-      - '19'
+      - '20'
       vary:
       - Origin
       via:
@@ -123,13 +107,13 @@ interactions:
       x-ratelimit-remaining-requests:
       - '14399'
       x-ratelimit-remaining-tokens:
-      - '-401'
+      - '-468'
       x-ratelimit-reset-requests:
-      - 4.268999999s
+      - 3.624999999s
       x-ratelimit-reset-tokens:
-      - 1m4.816s
+      - 1m5.627s
       x-request-id:
-      - req_01j76fm6r5eg58rgh3e7rz5p62
+      - req_01j82150qhfpztp3pnk2dy3474
     status:
       code: 429
       message: Too Many Requests
@@ -151,7 +135,7 @@ interactions:
       file.\n\n# Input information\n\n## Input File\n\nFile name: \"src/main/java/com/redhat/coolstore/service/PromoService.java\"\nSource
       file contents:\n```java\npackage com.redhat.coolstore.service;\n\nimport java.io.Serializable;\nimport
       java.util.HashMap;\nimport java.util.HashSet;\nimport java.util.Map;\nimport
-      java.util.Set;\n\nimport jakarta.enterprise.context.ApplicationScoped;\n\nimport
+      java.util.Set;\n\nimport javax.enterprise.context.ApplicationScoped;\n\nimport
       com.redhat.coolstore.model.Promotion;\nimport com.redhat.coolstore.model.ShoppingCart;\nimport
       com.redhat.coolstore.model.ShoppingCartItem;\n\n@ApplicationScoped\npublic class
       PromoService implements Serializable {\n\n    private static final long serialVersionUID
@@ -186,8 +170,8 @@ interactions:
       in this section. If the file should be removed, make the content of the updated
       file a comment explaining it should be removed.\n```\n\n## Additional Information
       (optional)\n\nIf you have any additional details or steps that need to be performed,
-      put it here.\n\n"}], "model": "mixtral-8x7b-32768", "n": 1, "stop": null, "stream":
-      false, "temperature": 1e-08}'
+      put it here.\n\n"}], "model": "mixtral-8x7b-32768", "max_tokens": 4096, "n":
+      1, "stop": null, "stream": false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -199,57 +183,47 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: !!binary |
-        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
+        H4sIAAAAAAAAA6xYWXPjuBF+z6/owA+RshKHlExdLleNK5lUnFrvOKs9HlZbFkQ2JYxBgAOAkrxT
+        +u8pADqog2PvbvigEtn4ur8+cDS+EJaSEUkW1CR5wdsYXiedGIftlGZp+3oWddvDWZi0B1kS0ijt
+        ZMMISYvI2SdMzBYYJDIvOBomBWmRRCE1mJJR1O/0etdxNOy1SC5T5GREcrY2ivL2YN2ftbudfm9g
+        EQvJEtRk9MsXwkSKazIKWyRHrekcyegLUZIjGRGqNdOGCmMxUhgUlsHVFXyPVEvBxHwiJiIK4IcF
+        QsaUNqANFsA0GAmlSFFZeApmgcC0LtEPdX/dqAU1XpgXUlk0NZijMDDdfvlEl3QdoDCoCsU0Bo7H
+        2gR3RcFZQm0MxoksML2ZgkBMnekZQrKgYo6pfTvoeqbK0Ddqs1SZtixnmNBSoyP6H7qk8OED6AIT
+        lm0hUGrUTjx1fKdQ0OSZzhEEzVEXNEFYLRjfqXA0zrU0VguWLOC/JVXPpbdMNaYgRfPIgoNfsBHY
+        bHQC+A7XpgUrdPGwAUChS4WHaAtcnUecaaBLyjidcQQm3MBCSVt2f9OQcKp1Qc0igDETCR5xqUT0
+        QItpENJAQZUBmR2CN/4Ad4/3R/xomgKFFAsUKYrkxX47Nj8tZB6scz6FzIeRGitdstSFhemdWReD
+        bgA/IyRUOM1WUyY5lysm5hesnOqWwETCy7TWxyBJWZsWbAq5TEuOLfCJqxCqwdVV2xSoENK4LyPr
+        wXQ6Xed8IiZlGHaTA2f3jhMBAOBlcyXL4j71gnObftC7o1FVOFWGZTQx9Rp23m41nQKqypaoNJOe
+        NHaDMAi3oCPBzqt3525Np1Pr/XUAd5lBZdNnc7ar2QPAlY9NsMKC0205Sp6el/WKmcVegRS+QK6u
+        4Mcitasm/Itx3Ebczt2J2NVvIvNAYeqXW8m1kQoDjWrJEryxiMoKFTAZjFExytlvdv7cHEtLw3jw
+        b6oXD7SoE43RXBLVIPzoiuB3rGwV3EUf3dYRPCqZS4u6ecvo8UIWBRPzf1Blfjfg3mDuWL0/IzsR
+        RTnjLPHrDzhSY58Dm2rucqyhGnv4YlXZoiwUW1KDrhhYAhkTlAOXYg7ajf/JV+WP9/+EW+iEg0E8
+        DONBfxDbXTTuDb69OdU0NsrWo11x4RZEyfn5EDS+vPcB9MVtVwf/PkZzBvZOVt1rNA+OeP3HcFzB
+        tmy8OW+l0bypAwU0TRsWtifWmJBuZ9gZDiekBUEnbh7AmxNmS8lSoEXBX3YJ22vRjWouQVdeTlxg
+        GTSqYvirD4NbPTo9/3ukIJijOa2Ub5k2jWag2W82Rtvghiem7PNACx8an7UWXMzIAy0q4XwNcxJf
+        +2RSQWM/zCuFEczRVELUvMBvn6AHWgRFaRruxbps3bxPG82Wl5/b3FwkcRop0AmD0RsDWkNwW/GF
+        kmlpF324tVoD75391GhWGd9c0nEanNuD23N0bnvdl9G2ajxuWy41TO1jqelt4Md0ycRcNy7RfVR+
+        hv0d9jF/RJWgMB+zzH1vR5bNV21YFV9X3oigfdlC87Kvm68mevP67BwvmMvt/3F2Xgj3u3eP3398
+        +DiyGHuCACMN5fbEN3e9iLIHNAH9uAWZQgS9ZXWs5dSgjdGuJn+wCvfT+xb6cU3WjxRoW9yVAOxL
+        4GwG+EE7K3XprlPuceEr87I2XbVbxMmacZ6f402gNj9/aK844q7QlErUIqsGXtk09JFPb9odX3O8
+        vjBtJxC80fvLPjg/ALnGP6e9Jrb7P+8/LlEpluJxZfjV1kj/x5fASU4m5OgU9Is9jNxOCHzjjyXf
+        gN3Nqyy98Ii3HfTrhNxUSG32p++rK7hLU2bHUg73IpMqd0cyK/xOmm37tUJIpWvxdm2cb7mBipdd
+        wyfNAtXZmVyD3rWQL0AV1vWIYK8OrNwaoVmGiT2wz17cuK2xTMl835QbWWmuA7jjWrbexDOR6b7n
+        nVbDO90ePPWh533/1e7NLoLaMM5hSTlLrdIKJbJpES7nhZIzTUa2iFskY4LpxZNyVypkRLSRBdn8
+        2iLl7jbmc4klPhmWIxmFQRhGYXjdjePh9hm0iE1uYZ6MfEahySjq9KPDxx2uN+wPemEU27uc3fVR
+        BXIqcLAoGPZ7URxF3UGLuFV+j+hcD3r7b25wJwiv42G3H8XdTYvoF20wf8qYmLuexN0dZcVTEmed
+        cBbPZhFpkfXTXMnP1kl3K6bw81MYfRp0olj0e1l3rhf91UxlUdZ5zgXZbP7yPwAAAP//AwAqvtLw
+        PxMAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bf7884459370372-NBO
+      - 8c4faf5a0bd4b196-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -259,7 +233,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Sat, 07 Sep 2024 14:54:10 GMT
+      - Wed, 18 Sep 2024 07:39:58 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -277,13 +251,13 @@ interactions:
       x-ratelimit-remaining-requests:
       - '14399'
       x-ratelimit-remaining-tokens:
-      - '105'
+      - '161'
       x-ratelimit-reset-requests:
       - 6s
       x-ratelimit-reset-tokens:
-      - 58.739s
+      - 58.067s
       x-request-id:
-      - req_01j76fmstkfqtb0ahbpjydtywr
+      - req_01j8215n76f3gsh7wbrf1f2kmn
     status:
       code: 200
       message: OK

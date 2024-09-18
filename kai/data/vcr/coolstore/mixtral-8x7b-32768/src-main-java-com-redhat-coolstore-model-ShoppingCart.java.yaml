@@ -54,8 +54,8 @@ interactions:
       If the file should be removed, make the content of the updated file a comment
       explaining it should be removed.\n```\n\n## Additional Information (optional)\n\nIf
       you have any additional details or steps that need to be performed, put it here.\n\n"}],
-      "model": "mixtral-8x7b-32768", "n": 1, "stop": null, "stream": false, "temperature":
-      1e-08}'
+      "model": "mixtral-8x7b-32768", "max_tokens": 4096, "n": 1, "stop": null, "stream":
+      false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -67,29 +67,13 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: '{"error":{"message":"Rate limit reached for model `mixtral-8x7b-32768`
         in organization `org_01j6xx0xvnfqeb9eg1khqcjjs7` on tokens per minute (TPM):
-        Limit 5000, Used 4553, Requested 1098. Please try again in 7.804s. Visit https://console.groq.com/docs/rate-limits
+        Limit 5000, Used 4549, Requested 1098. Please try again in 7.756s. Visit https://console.groq.com/docs/rate-limits
         for more information.","type":"tokens","code":"rate_limit_exceeded"}}
 
         '
@@ -97,7 +81,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bef3a7f4cf7b195-NBO
+      - 8c4f9a072e420372-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -107,7 +91,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 06 Sep 2024 14:42:56 GMT
+      - Wed, 18 Sep 2024 07:25:22 GMT
       Server:
       - cloudflare
       alt-svc:
@@ -125,13 +109,13 @@ interactions:
       x-ratelimit-remaining-requests:
       - '14400'
       x-ratelimit-remaining-tokens:
-      - '447'
+      - '451'
       x-ratelimit-reset-requests:
       - 0s
       x-ratelimit-reset-tokens:
-      - 54.628s
+      - 54.58s
       x-request-id:
-      - req_01j73wkk2hfd68xv74qrpe10md
+      - req_01j820b08efbhbf1zer7zrb585
     status:
       code: 429
       message: Too Many Requests
@@ -190,8 +174,8 @@ interactions:
       If the file should be removed, make the content of the updated file a comment
       explaining it should be removed.\n```\n\n## Additional Information (optional)\n\nIf
       you have any additional details or steps that need to be performed, put it here.\n\n"}],
-      "model": "mixtral-8x7b-32768", "n": 1, "stop": null, "stream": false, "temperature":
-      1e-08}'
+      "model": "mixtral-8x7b-32768", "max_tokens": 4096, "n": 1, "stop": null, "stream":
+      false, "temperature": 1e-08}'
     headers:
       accept:
       - application/json
@@ -203,57 +187,42 @@ interactions:
       - application/json
       host:
       - api.groq.com
-      user-agent:
-      - Groq/Python 0.11.0
-      x-stainless-arch:
-      - x64
-      x-stainless-async:
-      - 'false'
-      x-stainless-lang:
-      - python
-      x-stainless-os:
-      - Linux
-      x-stainless-package-version:
-      - 0.11.0
-      x-stainless-runtime:
-      - CPython
-      x-stainless-runtime-version:
-      - 3.12.5
     method: POST
     uri: https://api.groq.com/openai/v1/chat/completions
   response:
     body:
       string: !!binary |
-        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
+        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
+        AA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8bef3ab4f99cb195-NBO
+      - 8c4f9a3c9a7fb19c-NBO
       Cache-Control:
       - private, max-age=0, no-store, no-cache, must-revalidate
       Connection:
@@ -263,7 +232,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 06 Sep 2024 14:43:07 GMT
+      - Wed, 18 Sep 2024 07:25:33 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -279,15 +248,15 @@ interactions:
       x-ratelimit-limit-tokens:
       - '5000'
       x-ratelimit-remaining-requests:
-      - '14397'
+      - '14399'
       x-ratelimit-remaining-tokens:
-      - '62'
+      - '65'
       x-ratelimit-reset-requests:
-      - 17.613999999s
+      - 6s
       x-ratelimit-reset-tokens:
-      - 59.251999999s
+      - 59.218s
       x-request-id:
-      - req_01j73wkvdtfd6ssm1ye6hhxweb
+      - req_01j820b8ksexd9xpvmwd6bk8ae
     status:
       code: 200
       message: OK
