@@ -20,9 +20,14 @@ database = "kai"
 user = "kai"
 password = "dog8code"
 
+#[models]
+#provider = "ChatIBMGenAI"
+
+#[models.args]
+#model_id = "mistralai/mixtral-8x7b-instruct-v01"
+
 [models]
-provider = "ChatIBMGenAI"
+provider = "ChatGroq"
 
 [models.args]
-model_id = "meta-llama/llama-3-70b-instruct"
-parameters.max_new_tokens = 2048
+model = "mixtral-8x7b-32768"

@@ -143,6 +143,7 @@ grpcio-status==1.62.3
     # via google-api-core
 gunicorn==22.0.0
     # via kai (pyproject.toml)
+langchain_groq==0.1.9    
 h11==0.14.0
     # via httpcore
 httpcore==1.0.5
