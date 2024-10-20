@@ -136,7 +136,7 @@ class KaiTrace:
         )
         os.makedirs(os.path.dirname(result_file_path), exist_ok=True)
         with open(result_file_path, "w") as f:
-            f.write(result.pretty_repr())
+            f.write(str(result))
 
     @enabled_check
     def response_metadata(

@@ -88,6 +88,30 @@ class KaiApplication:
 
         self.solution_consumer = solution_consumer_factory(config.solution_consumers)
 
+    def reinvoke_llm(self, human_input: str, messages: list):
+        """This function invokes the LLM for the second time."""
+        messages.append(("human", human_input))
+        ai_msg = self.model_provider.llm.invoke(messages)
+        return ai_msg
+
+    def ensure_codeblocks(self, prompt: str, language: str):
+        """This function ensures that LLM responses will have codeblocks."""
+        messages = [
+            ("human", prompt),
+        ]
+        ai_msg = self.model_provider.llm.invoke(messages)
+
+        if (
+            len(parse_file_solution_content(language, str(ai_msg.content)).updated_file)
+            == 0
+        ):
+            return self.reinvoke_llm(
+                "I request you to generate a complete response.", messages
+            )
+
+        else:
+            return ai_msg
+
     def get_incident_solutions_for_file(
         self,
         file_name: str,
@@ -180,8 +204,8 @@ class KaiApplication:
                         application_name,
                         f'{file_name.replace("/", "-")}',
                     ):
-                        llm_result = self.model_provider.llm.invoke(prompt)
-                        trace.llm_result(count, retry_attempt_count, llm_result)
+                        llm_result = self.ensure_codeblocks(prompt, src_file_language)
+                        trace.llm_result(count, retry_attempt_count, llm_result.content)
                         trace.response_metadata(
                             count, retry_attempt_count, llm_result.response_metadata
                         )
