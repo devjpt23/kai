@@ -8,6 +8,7 @@ from langchain_community.chat_models import ChatOllama
 from langchain_community.chat_models.fake import FakeListChatModel
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
 from pydantic.v1.utils import deep_update
 
@@ -99,6 +100,20 @@ class ModelProvider:
 
                 model_args = deep_update(defaults, config.args)
                 model_id = model_args["model_id"]
+
+            case "ChatGroq":
+                model_class = ChatGroq
+                api_key = os.getenv("GROQ_API_KEY")
+
+                defaults = {
+                    "model": "mixtral-8x7b-32768",
+                    "temperature": 0,
+                    "max_tokens": 4096,
+                    "streaming": False,
+                }
+
+                model_args = deep_update(defaults, config.args)
+                model_id = model_args["model"]
 
             case "FakeListChatModel":
                 model_class = FakeListChatModel

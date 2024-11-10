@@ -225,7 +225,7 @@ def run_demo(report: Report):
     total_incidents = sum(len(incidents) for incidents in impacted_files.values())
     print(f"{num_impacted_files} files with a total of {total_incidents} incidents.")
 
-    max_workers = int(os.environ.get("KAI_MAX_WORKERS", 8))
+    max_workers = int(os.environ.get("KAI_MAX_WORKERS", 1))
     KAI_LOG.info(f"Running in parallel with {max_workers} workers")
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures: list[Future[str]] = []

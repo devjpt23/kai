@@ -282,6 +282,7 @@ langchain-core==0.3.6
     #   langchain-openai
     #   langchain-text-splitters
 langchain-experimental==0.3.2
+langchain_groq==0.2.1
     # via kai (pyproject.toml)
 langchain-google-genai==2.0.0
     # via kai (pyproject.toml)
