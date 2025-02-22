@@ -41,6 +41,9 @@ genproto
 gomod
 gopls
 gpgsign
+groq
+Groq
+GROQ
 htmlcov
 httpserver
 httpsnoop

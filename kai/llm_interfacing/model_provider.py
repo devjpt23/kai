@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from typing import Any, Optional
 
+from langchain_anthropic import ChatAnthropic
 from langchain_aws import ChatBedrock
 from langchain_community.chat_models.fake import FakeListChatModel
 from langchain_core.language_models.base import LanguageModelInput
@@ -11,6 +12,7 @@ from langchain_core.messages import BaseMessage
 from langchain_core.runnables import ConfigurableField, RunnableConfig
 from langchain_deepseek import ChatDeepSeek
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_ollama import ChatOllama
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from opentelemetry import trace
@@ -173,6 +175,30 @@ class ModelProvider:
                 model_args = deep_update(defaults, config.args)
                 model_id = model_args["model"]
 
+            case "ChatAnthropic":
+                model_class = ChatAnthropic
+
+                defaults = {
+                    "model": "claude-3-5-sonnet-20241022",
+                    "temperature": 0,
+                    "timeout": None,
+                    "max_retries": 2,
+                }
+
+            case "ChatGroq":
+                model_class = ChatGroq
+
+                defaults = {
+                    "model": "mixtral-8x7b-32768",
+                    "temperature": 0,
+                    "timeout": None,
+                    "max_retries": 2,
+                    "max_tokens": 2049,
+                }
+
+                model_args = deep_update(defaults, config.args)
+                model_id = model_args["model"]
+
             case _:
                 raise Exception(f"Unrecognized provider '{config.provider}'")
 
@@ -211,6 +237,10 @@ class ModelProvider:
         elif isinstance(self.llm, AzureChatOpenAI):
             challenge("max_tokens")
         elif isinstance(self.llm, ChatDeepSeek):
+            challenge("max_tokens")
+        elif isinstance(self.llm, ChatAnthropic):
+            challenge("max_tokens")
+        elif isinstance(self.llm, ChatGroq):
             challenge("max_tokens")
 
     @tracer.start_as_current_span("invoke_llm")
